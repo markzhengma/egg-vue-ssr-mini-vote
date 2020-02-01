@@ -1,0 +1,79 @@
+{
+  "name": "mini-vote",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "egg": {
+    "declarations": true
+  },
+  "dependencies": {
+    "@easy-team/easywebpack-vue": "^4.1.0",
+    "axios": "^0.19.2",
+    "babel-plugin-component": "^1.1.1",
+    "cross-env": "^7.0.0",
+    "egg": "^2.15.1",
+    "egg-cors": "^2.2.3",
+    "egg-logger": "^2.4.1",
+    "egg-logview": "^2.0.0",
+    "egg-mongoose": "^3.2.0",
+    "egg-scripts": "^2.12.0",
+    "egg-validate": "^2.0.2",
+    "egg-view-vue-ssr": "^3.3.2",
+    "egg-webpack": "^4.5.2",
+    "egg-webpack-vue": "^2.0.2",
+    "element-ui": "^2.13.0",
+    "eslint-plugin-vue": "^6.1.2",
+    "extend": "^3.0.2",
+    "font-awesome": "^4.7.0",
+    "ip": "^1.1.5",
+    "lodash": "^4.17.15",
+    "lodash-id": "^0.14.0",
+    "lowdb": "^1.0.0",
+    "mockjs": "^1.1.0",
+    "moment": "^2.24.0",
+    "raw-loader": "^4.0.0",
+    "shortid": "^2.2.15",
+    "showdown": "^1.9.1",
+    "simplemde": "^1.11.2",
+    "vue": "^2.6.11",
+    "vue-hot-reload-api": "^2.3.4",
+    "vue-i18n": "^8.15.3",
+    "vue-material-input": "^1.2.0",
+    "vue-router": "^3.1.5",
+    "vuex": "^3.1.2",
+    "vuex-router-sync": "^5.0.0"
+  },
+  "devDependencies": {
+    "autod": "^3.0.1",
+    "autod-egg": "^1.1.0",
+    "egg-bin": "^4.11.0",
+    "egg-ci": "^1.11.0",
+    "egg-mock": "^3.21.0",
+    "eslint": "^5.13.0",
+    "eslint-config-egg": "^7.1.0"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "start": "egg-scripts start --daemon --title=egg-server-mini-vote",
+    "stop": "egg-scripts stop --title=egg-server-mini-vote",
+    "dev": "egg-bin dev",
+    "debug": "egg-bin debug",
+    "test": "npm run lint -- --fix && npm run test-local",
+    "test-local": "egg-bin test",
+    "cov": "egg-bin cov",
+    "lint": "eslint .",
+    "ci": "npm run lint && npm run cov",
+    "autod": "autod"
+  },
+  "ci": {
+    "version": "10"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "markzhengma",
+  "license": "MIT"
+}
