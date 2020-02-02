@@ -39,7 +39,37 @@ class EventController extends Controller {
     } else {
       this.ctx.body = { code: 200, data: res };
     }
-  }
+  };
+  async deleteOne(){
+    const { id } = this.ctx.params;
+
+    const res = await this.ctx.service.event.delete(id);
+    if(!res) {
+      this.ctx.body = { code: 500, data: 'internal server error' };
+    } else {
+      this.ctx.body = { code: 200, data: res };
+    }
+  };
+  async createUserOption(){
+    const { option_id, userid } = this.ctx.request.body;
+
+    const res = await this.ctx.service.event.createUserOption(option_id, userid);
+    if(!res) {
+      this.ctx.body = { code: 500, data: 'internal server error' };
+    } else {
+      this.ctx.body = { code: 200, data: res };
+    }
+  };
+  async deleteUserOption(){
+    const { option_id, userid } = this.ctx.request.query;
+
+    const res = await this.ctx.service.event.deleteUserOption(option_id, userid);
+    if(!res) {
+      this.ctx.body = { code: 500, data: 'internal server error' };
+    } else {
+      this.ctx.body = { code: 200, data: res };
+    }
+  };
 }
 
 module.exports = EventController;

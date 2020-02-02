@@ -13,9 +13,16 @@
       <button v-if="user.userid === event.userid" v-on:click="changeOpenStatus(event_id, true)">Re-Open Vote</button>
     </div>
     <p>Creator: {{ event.creator }}</p>
-    <div v-for="item in event.option_list" v-bind:key="item.option_id">
+    <div class="option-card" v-for="item in event.option_list" v-bind:key="item.option_id">
       <b>Option: {{item.detail}}</b>
-      <button v-if="event.open_status" v-on:click="vote(item.option_id)">Vote</button>
+      <button v-if="event.open_status && !item.voted" v-on:click="vote(item.option_id)">Vote</button>
+      <button v-else-if="event.open_status && item.voted" v-on:click="unvote(item.option_id)">Unvote</button>
+      <div>
+        <b>Voted Users: </b>
+        <div class="user-card" v-for="user in item.user_list" v-bind:key="user.userid">
+          <b>{{ user.username }}</b>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -72,9 +79,17 @@ export default {
               console.log(user);
               const event = res.data.data.event;
               const optionList = res.data.data.options.map(option => {
+                let voted = false;
+                option.user_list.forEach(user => {
+                  if(user.userid === this.user.userid){
+                    voted = true;
+                  }
+                })
                 return {
                   option_id: option._id,
-                  detail: option.detail
+                  detail: option.detail,
+                  user_list: option.user_list,
+                  voted,
                 }
               });
               this.event = {
@@ -95,11 +110,56 @@ export default {
         alert(err);
         console.log(err)
       })
+    },
+    vote(option_id){
+      axios.post(
+        'http://localhost:7001/event/vote',
+        {
+          option_id,
+          userid: this.user.userid
+        }
+      )
+        .then(res => {
+          console.log(res);
+          if(res.data.code !== 200){
+            alert('operation failed');
+          } else {
+            this.fetchEventData(this.event_id);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    },
+    unvote(option_id){
+      axios.delete(`http://localhost:7001/event/vote?option_id=${option_id}&userid=${this.user.userid}`)
+        .then(res => {
+          console.log(res);
+          if(res.data.code !== 200){
+            alert('operation failed');
+          } else {
+            this.fetchEventData(this.event_id);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        })
     }
   }
 }
 </script>
 
-<style>
-
+<style scoped>
+  .option-card{
+    padding: 5px;
+    background-color: rgb(255, 244, 194);
+    margin: 5px;
+  }
+  .user-card{
+    padding: 2px;
+    margin: 2px;
+    background-color: grey;
+    color: white;
+    display: inline-block;
+  }
 </style>

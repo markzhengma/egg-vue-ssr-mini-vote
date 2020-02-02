@@ -4,16 +4,16 @@ module.exports = app => {
   const mongoose = app.mongoose;
   const Schema = mongoose.Schema;
 
-  const UserEventSchema = new Schema({
+  const UserOptionSchema = new Schema({
     option_id: {
       type: String,
       default: '',
     },
-    uid: {
+    userid: {
       type: String,
       default: '',
     }
   });
 
-  return mongoose.model('UserEvent', UserEventSchema);
+  return mongoose.model('UserOption', UserOptionSchema);
 };

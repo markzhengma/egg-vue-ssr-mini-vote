@@ -5,7 +5,23 @@ const Service = require('egg').Service;
 class EventService extends Service {
   async find(id){
     const event = await this.ctx.model.Event.findOne({ _id: id });
-    const options = await this.ctx.model.Option.find({ event_id: id });
+    const optionData = await this.ctx.model.Option.find({ event_id: id });
+    const options = [];
+    for(let i in optionData){
+      let userIdList = await this.ctx.model.UserOption.find({ option_id: optionData[i]._id });
+      let userList = [];
+      for(let j in userIdList){
+        let user = await this.ctx.model.User.findById(userIdList[j].userid);
+        userList.push({ userid: userIdList[j].userid, username: user.username });
+      };
+      let prettyOption = {
+        event_id: optionData[i].event_id,
+        detail: optionData[i].detail,
+        _id: optionData[i]._id,
+        user_list: userList
+      };
+      options.push(prettyOption);
+    }
     return { event, options };
   };
   async findAll(){
@@ -35,6 +51,19 @@ class EventService extends Service {
 
   async findByIdAndUpdate(id, data){
     const res = await this.ctx.model.Event.findByIdAndUpdate(id, data);
+    return res;
+  };
+
+  async delete(id){
+    const res = await this.ctx.model.Event.deleteOne({ _id: id });
+    return res;
+  };
+  async createUserOption(option_id, userid){
+    const res = await this.ctx.model.UserOption.create({ option_id, userid });
+    return res;
+  };
+  async deleteUserOption(option_id, userid){
+    const res = await this.ctx.model.UserOption.deleteOne({ option_id, userid });
     return res;
   }
 }

@@ -5,13 +5,13 @@ import 'egg';
 import ExportEvent = require('../../../app/model/event');
 import ExportOption = require('../../../app/model/option');
 import ExportUser = require('../../../app/model/user');
-import ExportUserEvent = require('../../../app/model/userEvent');
+import ExportUserOption = require('../../../app/model/userOption');
 
 declare module 'egg' {
   interface IModel {
     Event: ReturnType<typeof ExportEvent>;
     Option: ReturnType<typeof ExportOption>;
     User: ReturnType<typeof ExportUser>;
-    UserEvent: ReturnType<typeof ExportUserEvent>;
+    UserOption: ReturnType<typeof ExportUserOption>;
   }
 }

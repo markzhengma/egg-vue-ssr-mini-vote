@@ -4,10 +4,11 @@
     <p>USER: {{ user.username || '' }}</p>
     <button v-on:click="changePage('home')">Home</button>
     <h3>EVENT LIST</h3>
-    <div v-for="item in event_list" v-bind:key="item._id">
+    <div class="event-card" v-for="item in event_list" v-bind:key="item._id">
       <h5>{{ item.title }}</h5>
       <b v-if="item.open_status">Status: OPEN</b>
       <b v-else>Status: CLOSED</b>
+      <button v-if="item.userid === user.userid" v-on:click="deleteEvent(item._id)">Delete</button>
       <button v-on:click="goToEventPage(item._id)">Detail</button>
     </div>
   </div>
@@ -51,11 +52,31 @@ export default {
       console.log(`navigating to event page id: ${id}`);
       this.$emit('changePage', 'event');
       this.commitSetEventId(id);
+    },
+    deleteEvent(id){
+      axios.delete(`http://localhost:7001/event/single/${id}`)
+        .then(res => {
+          console.log(res);
+          if(res.data.code !== 200){
+            alert('not found!')
+          } else {
+            alert('Delete event successful')
+            this.findAllEvents();
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        })
     }
   }
 }
 </script>
 
-<style>
-
+<style scoped>
+  .event-card{
+    background-color: grey;
+    color: white;
+    margin: 10px;
+    padding: 10px;
+  }
 </style>

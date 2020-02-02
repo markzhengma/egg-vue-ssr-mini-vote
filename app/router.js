@@ -14,6 +14,10 @@ module.exports = app => {
 
   router.get('/event/single/:id', controller.event.find);
   router.post('/event/single', controller.event.create);
+  router.delete('/event/single/:id', controller.event.deleteOne);
   router.get('/event/all', controller.event.findAll);
   router.put('/event/status/:id', controller.event.updateOpenStatus);
+
+  router.post('/event/vote', controller.event.createUserOption);
+  router.delete('/event/vote', controller.event.deleteUserOption);
 };
