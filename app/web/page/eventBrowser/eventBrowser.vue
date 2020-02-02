@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h1>EVENT BROWSER</h1>
-    <p>USER: {{ user.username || '' }}</p>
+    <h1>活动浏览</h1>
+    <p>用户: {{ user.username || '' }}</p>
     <BButton v-on:click="changePage('home')" variant="info">回主页</BButton>
-    <h3>EVENT LIST</h3>
+    <h3>活动列表</h3>
     <BCard 
       v-for="item in event_list" 
       v-bind:key="item._id"
@@ -11,8 +11,8 @@
       :title="item.title">
       <BCardText v-if="item.open_status">状态: OPEN</BCardText>
       <BCardText v-else>状态: CLOSED</BCardText>
-      <BButton v-if="item.userid === user.userid" v-on:click="deleteEvent(item._id)" variant="danger">Delete</BButton>
-      <BButton v-on:click="goToEventPage(item._id)" variant="primary">Detail</BButton>
+      <BButton v-if="item.userid === user.userid" v-on:click="deleteEvent(item._id)" variant="danger">删除</BButton>
+      <BButton v-on:click="goToEventPage(item._id)" variant="primary">详细</BButton>
     </BCard>
   </div>
 </template>
