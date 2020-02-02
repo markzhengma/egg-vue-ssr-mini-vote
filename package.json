@@ -60,6 +60,7 @@
     "stop": "egg-scripts stop --title=egg-server-mini-vote",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
+    "build": "easy build prod",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "egg-bin test",
     "cov": "egg-bin cov",

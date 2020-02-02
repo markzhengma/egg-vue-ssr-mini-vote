@@ -6,6 +6,7 @@
 module.exports = app => {
   const { router, controller } = app;
   router.get('/', controller.index.index);
+  router.get('/csr', controller.index.csr);
 
   router.get('/user/all', controller.user.findAll);
   router.get('/user/single/:id', controller.user.findOne);
