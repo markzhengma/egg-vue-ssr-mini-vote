@@ -2,22 +2,31 @@
   <div>
     <h1>EVENT BROWSER</h1>
     <p>USER: {{ user.username || '' }}</p>
-    <button v-on:click="changePage('home')">Home</button>
+    <BButton v-on:click="changePage('home')" variant="info">回主页</BButton>
     <h3>EVENT LIST</h3>
-    <div class="event-card" v-for="item in event_list" v-bind:key="item._id">
-      <h5>{{ item.title }}</h5>
-      <b v-if="item.open_status">Status: OPEN</b>
-      <b v-else>Status: CLOSED</b>
-      <button v-if="item.userid === user.userid" v-on:click="deleteEvent(item._id)">Delete</button>
-      <button v-on:click="goToEventPage(item._id)">Detail</button>
-    </div>
+    <BCard 
+      v-for="item in event_list" 
+      v-bind:key="item._id"
+      style="max-width: 20rem; margin: 5px"
+      :title="item.title">
+      <BCardText v-if="item.open_status">状态: OPEN</BCardText>
+      <BCardText v-else>状态: CLOSED</BCardText>
+      <BButton v-if="item.userid === user.userid" v-on:click="deleteEvent(item._id)" variant="danger">Delete</BButton>
+      <BButton v-on:click="goToEventPage(item._id)" variant="primary">Detail</BButton>
+    </BCard>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import { mapActions } from 'vuex';
+import { BCard, BButton, BCardText } from 'bootstrap-vue'
 export default {
+  components: {
+    BCard,
+    BButton,
+    BCardText
+  },
   data(){
     return {
       user: this.$store.state.user,

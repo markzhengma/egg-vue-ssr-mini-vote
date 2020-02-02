@@ -10,6 +10,8 @@
     "@easy-team/easywebpack-vue": "^4.1.0",
     "axios": "^0.19.2",
     "babel-plugin-component": "^1.1.1",
+    "bootstrap": "^4.4.1",
+    "bootstrap-vue": "^2.4.0",
     "cross-env": "^7.0.0",
     "egg": "^2.15.1",
     "egg-cors": "^2.2.3",

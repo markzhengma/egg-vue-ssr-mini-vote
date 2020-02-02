@@ -1,35 +1,44 @@
 <template>
   <div>
     <h1>EVENT PAGE</h1>
-    <button v-on:click="changePage('eventBrowser')">Event Browser</button>
+    <BButton v-on:click="changePage('eventBrowser')" variant="info">返回投票列表</BButton>
     <h3>Title: {{ event.title }}</h3>
     <p>Info: {{ event.info }}</p>
     <div v-if="event.open_status">
       <b>Status: OPEN</b>
-      <button v-if="user.userid === event.userid" v-on:click="changeOpenStatus(event_id, false)">Close Vote</button>
+      <BButton v-if="user.userid === event.userid" v-on:click="changeOpenStatus(event_id, false)" variant="danger">关闭投票</BButton>
     </div>
     <div v-else>
       <b>Status: CLOSED</b>
-      <button v-if="user.userid === event.userid" v-on:click="changeOpenStatus(event_id, true)">Re-Open Vote</button>
+      <BButton v-if="user.userid === event.userid" v-on:click="changeOpenStatus(event_id, true)" variant="success">打开投票</BButton>
     </div>
     <p>Creator: {{ event.creator }}</p>
-    <div class="option-card" v-for="item in event.option_list" v-bind:key="item.option_id">
-      <b>Option: {{item.detail}}</b>
-      <button v-if="event.open_status && !item.voted" v-on:click="vote(item.option_id)">Vote</button>
-      <button v-else-if="event.open_status && item.voted" v-on:click="unvote(item.option_id)">Unvote</button>
+    <BCard 
+      v-for="item in event.option_list" 
+      v-bind:key="item.option_id"
+      :title="'Option: ' + item.detail"
+      style="max-width: 20rem; margin: 2px;">
+      <BButton v-if="event.open_status && !item.voted" v-on:click="vote(item.option_id)" variant="primary">Vote</BButton>
+      <BButton v-else-if="event.open_status && item.voted" v-on:click="unvote(item.option_id)" variant="warning">Unvote</BButton>
       <div>
         <b>Voted Users: </b>
         <div class="user-card" v-for="user in item.user_list" v-bind:key="user.userid">
-          <b>{{ user.username }}</b>
+          {{ user.username }}
         </div>
       </div>
-    </div>
+    </BCard>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import { BButton, BCard, BCardText } from 'bootstrap-vue'
 export default {
+  components: {
+    BButton,
+    BCard,
+    BCardText
+  },
   data(){
     return {
       user: this.$store.state.user,
@@ -156,8 +165,9 @@ export default {
     margin: 5px;
   }
   .user-card{
-    padding: 2px;
+    padding: 0 8px;
     margin: 2px;
+    border-radius: 4px;
     background-color: grey;
     color: white;
     display: inline-block;

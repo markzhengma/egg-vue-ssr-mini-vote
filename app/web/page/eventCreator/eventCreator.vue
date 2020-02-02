@@ -1,19 +1,17 @@
 <template>
   <div>
-    <h1>EVENT CREATOR</h1>
-    <p>USER: {{ user.username || '' }}</p>
-    <button v-on:click="changePage('home')">Home</button>
-    <div>
-      <input type="text" v-model="title" placeholder="title"/>
-      <input type="text" v-model="info" placeholder="info"/>
-      <div v-for="item in options" v-bind:key="item.id">
-        <div>
-          <input v-model="item.text" type="text" placeholder="option"/>
-          <button v-on:click="removeOption(options.indexOf(item))">remove option</button>
-        </div>
+    <h1>创建投票</h1>
+    <p>用户: {{ user.username || '' }}</p>
+    <BButton v-on:click="changePage('home')" variant="info">返回主页</BButton>
+    <div style="max-width: 20rem; margin: 5px;">
+      <BButton  v-on:click="createEvent" variant="success">创建</BButton>
+      <BFormInput type="text" v-model="title" placeholder="title" style="margin: 2px;"/>
+      <BFormInput type="text" v-model="info" placeholder="info" style="margin: 2px;"/>
+      <div v-for="item in options" v-bind:key="item.id" style="display:flex; flex-direction: row; margin: 2px 0;">
+        <BFormInput v-model="item.text" type="text" placeholder="option" style="width: 15rem; margin: 2px;"/>
+        <BButton v-on:click="removeOption(options.indexOf(item))" variant="danger">删除</BButton>
       </div>
-      <button v-on:click="addOption">add option</button>
-      <button  v-on:click="createEvent">create</button>
+      <BButton v-on:click="addOption" variant="primary">新选项</BButton>
     </div>
   </div>
 </template>
@@ -21,7 +19,13 @@
 <script>
 import axios from 'axios';
 import { mapActions } from 'vuex';
+import{ BForm, BFormInput, BButton } from 'bootstrap-vue';
 export default {
+  components: {
+    BForm,
+    BFormInput,
+    BButton
+  },
   data(){
     return {
       user: this.$store.state.user,

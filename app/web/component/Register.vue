@@ -1,18 +1,26 @@
 <template>
   <div>
     <h1>REGISTER</h1>
-    <form v-on:submit.prevent="register">
-      <input type="text" v-model="username" placeholder="username"/>
-      <input type="password" v-model="password" placeholder="password"/>
-      <input type="password" v-model="passwordCheck" placeholder="password check"/>
-      <input type="submit"/>
-    </form>
-    <button v-on:click="changeLogin">Login!</button>
+    <div class="login-form">
+      <BForm v-on:submit.prevent="register">
+        <BFormInput type="text" v-model="username" placeholder="username"/>
+        <BFormInput type="password" v-model="password" placeholder="password"/>
+        <BFormInput type="password" v-model="passwordCheck" placeholder="password again"/>
+        <BButton type="submit" variant="primary">注册</BButton>
+      </BForm>
+    </div>
+    <BButton v-on:click="changeLogin" variant="success">跳至登录页</BButton>
   </div>
 </template>
 
 <script>
+import{ BForm, BFormInput, BButton } from 'bootstrap-vue';
 export default {
+  components: {
+    BForm,
+    BFormInput,
+    BButton
+  },
   computed: {
     // username(){
     //   return this.$store.state.user.username;
@@ -45,6 +53,12 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  .login-form{
+    width: 300px;
+    margin: 10px;
+  }
+  .login-form input{
+    margin: 5px;
+  }
 </style>

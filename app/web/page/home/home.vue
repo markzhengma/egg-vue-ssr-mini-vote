@@ -1,13 +1,14 @@
 <template>
   <div>
-    <h1>HOME!</h1>
-    <h3>Welcome, {{ user.username || '' }}!</h3>
-    <button v-on:click="changePage('eventCreator')">Create Vote Event</button>
-    <button v-on:click="changePage('eventBrowser')">Browse Vote Event</button>
+    <h1>个人主页</h1>
+    <h3>欢迎, {{ user.username || '' }}!</h3>
+    <BButton v-on:click="changePage('eventCreator')" variant="danger">Create Vote Event</BButton>
+    <BButton v-on:click="changePage('eventBrowser')" variant="warning">Browse Vote Event</BButton>
   </div>
 </template>
 
 <script>
+import { BButon } from 'bootstrap-vue'
 export default {
   data(){
     return {

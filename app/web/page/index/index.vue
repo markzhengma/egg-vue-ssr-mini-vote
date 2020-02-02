@@ -2,7 +2,7 @@
   <div>
     <!-- <h1>hello, world.</h1>
     <p>{{list}}</p> -->
-    <h1>INDEX</h1>
+    <h2>欢迎！</h2>
     <Login v-if="isLogin" @changeLogin="changeLogin" @success="login"/>
     <Register v-else @changeLogin="changeLogin" @success="register"/>
   </div>
